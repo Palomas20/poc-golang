@@ -35,7 +35,7 @@ jobs:
       if: success()
       uses: rtCamp/action-slack-notify@v2
       with:
-        status: 'si paso'
+        status: 'passed'
         text: 'Go CI succesfully'
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
