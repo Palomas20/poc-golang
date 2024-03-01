@@ -10,13 +10,17 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    env:
+      GO_VERSION: 1.16
+
+
     steps:
     - uses: actions/checkout@v3
 
-    - name: Set up Go
+    - name: Set up Go ${{ env.GO_VERSION }}
       uses: actions/setup-go@v4
       with:
-        go-version: '1.20'
+        go-version: ${{ env.GO_VERSION }}
 
     - name: instalar dependencias
       run: go mod download
@@ -25,4 +29,13 @@ jobs:
       run: go build -v ./...
 
     - name: Test
-      run: go test -v ./...
+      run: go test -json
+
+    - name: CI Succesful OK
+      if: success()
+      uses: rtCamp/action-slack-notify@v2
+      with:
+        status: 'si paso'
+        text: 'Go CI succesfully'
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
