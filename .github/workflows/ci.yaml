@@ -31,11 +31,11 @@ jobs:
     - name: Test
       run: go test -json
 
-    - name: CI Succesful OK
+    - name: CI Successful Ok
       if: success()
       uses: rtCamp/action-slack-notify@v2
       with:
         status: 'passed'
-        text: 'Go CI succesfully'
+        text: 'Go CI succesfully.'
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
